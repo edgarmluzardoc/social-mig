@@ -11,6 +11,44 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/**
+ * Home Routes
+ */
+Route::get('/', [
+    'uses' => 'PostController@getIndex',
+    'as' => 'post.index'
+]);
+
+
+/**
+ * Post Routes
+ */
+Route::group(['prefix' => 'post'], function() {
+    // Creating posts
+    Route::get('create', [
+        'uses' => 'PostController@getPostCreate',
+        'as' => 'post.create'
+    ]);
+
+    Route::post('create', [
+        'uses' => 'PostController@postPostCreate',
+        'as' => 'post.create'
+    ]);
+
+    // Updating posts
+    Route::get('edit/{id}', [
+        'uses' => 'PostController@getPostEdit',
+        'as' => 'post.edit'
+    ]);
+
+    Route::post('edit', [
+        'uses' => 'PostController@postPostUpdate',
+        'as' => 'post.update'
+    ]);
+
+    // Deleting posts
+    Route::get('delete/{id}', [
+        'uses' => 'PostController@getPostDelete',
+        'as' => 'post.delete'
+    ]);
 });
