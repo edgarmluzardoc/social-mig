@@ -1,9 +1,24 @@
-.quote {
-    font: 400 72px "Arizonia", Helvetica, sans-serif;
-    color: #F4645F;
-    text-align: center;
+/* Styles for posts */
+.post-title {
+    font: 400 60px "Mina", Helvetica, sans-serif;
+    color: #0000b3;
 }
 
-.post-title {
-    color: #F4645F;
+.post-content {
+    font: 400 18px "Mina", Helvetica, sans-serif;
+}
+
+/* Styles for inputs */
+textarea {
+    resize: none;
+}
+
+/* Styles for Navigation Bar */
+.navbar {
+    background-color: #596cb6;
+}
+
+.navbar .navbar-brand,
+.navbar-default .navbar-nav>li>a {
+    color: #ffffff;
 }

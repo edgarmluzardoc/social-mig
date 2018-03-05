@@ -10,4 +10,9 @@ class Post extends Model
         'title',
         'content'
     ];
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date("F j, Y, g:i a", strtotime($value));
+    }
 }

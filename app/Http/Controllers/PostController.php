@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    const MAX_POST_PER_PAGE = 5;
+
     /**
      * Gets all posts for home page
      */
     public function getIndex()
     {
         // TODO add pagination
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        $posts = Post::orderBy('created_at', 'desc')->paginate(self::MAX_POST_PER_PAGE);
         $params = [
             'posts' => $posts
         ];

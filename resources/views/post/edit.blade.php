@@ -1,9 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
-    {{--  @include('partials.errors')  --}}
+    @include('layouts.errors')
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
             <form action="{{ route('post.update') }}" method="post">
                 <div class="form-group">
                     <label for="title">Title</label>
@@ -11,12 +13,14 @@
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
-                    <input type="text" class="form-control" id="content" name="content" value="{{ $post->content }}">
+                    <textarea class="form-control" id="content" name="content" rows="10">{{ $post->content }}</textarea>
                 </div>
                 {{ csrf_field() }}
                 <input type="hidden" name="id" value="{{ $postId }}">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+        </div>
+        <div class="col-md-3">
         </div>
     </div>
 @stop
