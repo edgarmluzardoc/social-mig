@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Comment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -20,5 +21,62 @@ class CommentController extends Controller
             'comments' => $comments
         ];
         return view('comment.index', $params);
+    }
+
+    /**
+     * New - Create post action
+     */
+    public function postCommentCreate(Request $request)
+    {
+        $this->validate($request, [
+            'content' => 'required'
+        ]);
+
+        $comment = new Comment([
+            'content' => $request->input('content')
+        ]);
+        $post = Post::find($request->input('postId'));
+        $post->comments()->save($comment);
+        $params = [
+            'postId' => $post->id
+        ];
+
+        return redirect()->route('comment.index', $params)->with('info', 'Comment created!');
+    }
+
+    /**
+     * Edit - View comment to edit
+     */
+    public function postCommentUpdate(Request $request)
+    {
+        $this->validate($request, [
+            'content' => 'required'
+        ]);
+
+        $comment = Comment::find($request->input('commentId'));
+        $comment->content = $request->input('content');
+        $comment->save();
+
+        $postId = $request->input('postId');
+        $params = [
+            'postId' => $postId
+        ];
+
+        return redirect()->route('comment.index', $params)->with('info', 'Comment updated!');
+    }
+
+    /**
+     * Delete - Update post action
+     */
+    public function getCommentDelete($commentId)
+    {
+        $comment = Comment::find($commentId);
+        $postId = $comment->post_id;
+        $comment->delete();
+        $params = [
+            'postId' => $postId
+        ];
+
+        return redirect()->route('comment.index', $params)->with('info', 'Comment deleted!');
     }
 }

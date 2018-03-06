@@ -13,7 +13,6 @@
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
-                    {{--  <input type="text" class="form-control" id="content" name="content">  --}}
                     <textarea class="form-control" id="content" name="content" rows="10"></textarea>
                 </div>
                 {{ csrf_field() }}

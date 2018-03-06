@@ -19,7 +19,7 @@ textarea {
 }
 
 .navbar .navbar-brand,
-.navbar-default .navbar-nav>li>a {
+.navbar-default .navbar-nav > li > a {
     color: #ffffff;
 }
 
@@ -30,4 +30,15 @@ textarea {
 .navbar .navbar-brand:hover { 
     background-color: transparent;
     color: #333;
+}
+
+/* Styles for buttons */
+.modal .modal-buttons {
+    text-align: right;
+    padding-top: 15px;
+}
+
+.btn-secondary {
+    color: #ffffff;
+    background: #c3c3c3;
 }

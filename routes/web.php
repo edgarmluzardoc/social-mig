@@ -62,37 +62,20 @@ Route::get('/comments/post/{postId}', [
 ]);
 
 Route::group(['prefix' => 'comment'], function() {
-    // View comments
-    // Route::get('/{postId}', [
-    //     'uses' => 'CommentController@getIndex',
-    //     'as' => 'comment.index'
-    // ]);
-
     // Creating comments
-    // Route::get('create', [
-    //     'uses' => 'CommentController@getCommentCreate',
-    //     'as' => 'comment.create'
-    // ]);
+    Route::post('create', [
+        'uses' => 'CommentController@postCommentCreate',
+        'as' => 'comment.create'
+    ]);
 
-    // Route::post('create', [
-    //     'uses' => 'CommentController@postCommentCreate',
-    //     'as' => 'comment.create'
-    // ]);
-
-    // Updating comments
-    // Route::get('edit/{id}', [
-    //     'uses' => 'CommentController@getCommentEdit',
-    //     'as' => 'comment.edit'
-    // ]);
-
-    // Route::post('edit', [
-    //     'uses' => 'CommentController@postCommentUpdate',
-    //     'as' => 'comment.update'
-    // ]);
+    Route::post('edit', [
+        'uses' => 'CommentController@postCommentUpdate',
+        'as' => 'comment.update'
+    ]);
 
     // Deleting comments
-    // Route::get('delete/{id}', [
-    //     'uses' => 'CommentController@getcommentDelete',
-    //     'as' => 'comment.delete'
-    // ]);
+    Route::get('delete/{commentId}', [
+        'uses' => 'CommentController@getCommentDelete',
+        'as' => 'comment.delete'
+    ]);
 });
