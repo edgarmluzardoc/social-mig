@@ -15,7 +15,8 @@
             <p class="post-content">{{ $post->content }}</p>
         </div>
         <div class="col-md-4 text-left">
-            <a href="#">X Comments</a> | <a href="#">X Likes</a>
+            <a href="{{ route('comment.index', ['postId' => $post->id]) }}">{{ count($post->comments) }} Comments</a> | 
+            <a href="#">X Likes</a>
         </div>
         <div class="col-md-4 text-center">
                 <p>{{ $post->created_at }} by Username.</p>
@@ -26,10 +27,9 @@
         </div>
     </div>
     <hr>
-@endforeach
+    @endforeach
 
-<div class="col-md-12 text-center">
-    {{ $posts->links() }}
-</div>
-
+    <div class="col-md-12 text-center">
+        {{ $posts->links() }}
+    </div>
 @stop

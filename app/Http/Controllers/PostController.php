@@ -7,15 +7,14 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    const MAX_POST_PER_PAGE = 5;
+    const MAX_POSTS_PER_PAGE = 5;
 
     /**
      * Gets all posts for home page
      */
     public function getIndex()
     {
-        // TODO add pagination
-        $posts = Post::orderBy('created_at', 'desc')->paginate(self::MAX_POST_PER_PAGE);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(self::MAX_POSTS_PER_PAGE);
         $params = [
             'posts' => $posts
         ];
@@ -82,6 +81,7 @@ class PostController extends Controller
     public function getPostDelete($id)
     {
         $post = Post::find($id);
+        $post->comments()->delete();
         $post->delete();
         return redirect()->route('post.index')->with('info', 'Post deleted!');
     }

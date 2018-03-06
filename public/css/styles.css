@@ -22,3 +22,12 @@ textarea {
 .navbar-default .navbar-nav>li>a {
     color: #ffffff;
 }
+
+.navbar .navbar-brand {
+    font: 400 17px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.navbar .navbar-brand:hover { 
+    background-color: transparent;
+    color: #333;
+}

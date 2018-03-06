@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Comment extends Model
 {
     protected $fillable = [
-        'title',
         'content'
     ];
 
@@ -16,8 +15,8 @@ class Post extends Model
         return date("F j, Y, g:i a", strtotime($value));
     }
 
-    public function comments()
+    public function post()
     {
-        return $this->hasMany('App\Comment');
+        $this->belongsTo('App\Post');
     }
 }
