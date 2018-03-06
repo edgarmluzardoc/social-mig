@@ -24,7 +24,7 @@ class CommentController extends Controller
     }
 
     /**
-     * New - Create post action
+     * New - Create comment action
      */
     public function postCommentCreate(Request $request)
     {
@@ -66,7 +66,7 @@ class CommentController extends Controller
     }
 
     /**
-     * Delete - Update post action
+     * Delete - Update comment action
      */
     public function getCommentDelete($commentId)
     {

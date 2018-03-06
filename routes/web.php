@@ -51,6 +51,12 @@ Route::group(['prefix' => 'post'], function() {
         'uses' => 'PostController@getPostDelete',
         'as' => 'post.delete'
     ]);
+
+    // Adding Likes
+    Route::get('post/{id}/like', [
+        'uses' => 'PostController@getLikePost',
+        'as' => 'post.like'
+    ]);
 });
 
 /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Like;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -82,7 +83,19 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $post->comments()->delete();
+        $post->likes()->delete();
         $post->delete();
         return redirect()->route('post.index')->with('info', 'Post deleted!');
+    }
+
+    /**
+     * Likes - Adding likes to a post
+     */
+    public function getLikePost($id)
+    {
+        $post = Post::find($id);
+        $like = new Like();
+        $post->likes()->save($like);
+        return redirect()->back();
     }
 }

@@ -17,13 +17,14 @@
             <p class="post-content">{{ $post->content }}</p>
         </div>
         <div class="col-md-4 text-left">
-            <p>{{ count($post->comments) }} Comments | X Likes</p>
+            <p>{{ count($post->comments) }} Comments | {{ count($post->likes) }} Likes</p>
         </div>
         <div class="col-md-4 text-center">
             <p>{{ $post->created_at }} by Username.</p>
         </div>
         <div class="col-md-4 text-right">
-            <a href="#" data-toggle="modal" data-target="#createCommentModal">New Comment</a> | 
+            <a href="#" data-toggle="modal" data-target="#createCommentModal">Comment</a> | 
+            <a href="{{ route('post.like', ['id' => $post->id]) }}">Like</a> | 
             <a href="{{ route('post.edit', ['id' => $post->id]) }}">Edit</a> | 
             <a href="{{ route('post.delete', ['id' => $post->id]) }}">Delete</a>
         </div>
@@ -53,8 +54,4 @@
         {{--  Modal Edit Comment  --}}
         @include('comment.edit')
     @endforeach
-
-    <div class="col-md-12 text-center">
-        {{--  {{ $comments->links() }}  --}}
-    </div>
 @stop

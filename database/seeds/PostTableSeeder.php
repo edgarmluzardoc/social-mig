@@ -6,6 +6,7 @@ class PostTableSeeder extends Seeder
 {
     const DEFAULT_POSTS_SEEDS = 5;
     const DEFAULT_COMMENTS_SEEDS = 2;
+    const DEFAULT_LIKES_SEEDS = 1;
     /**
      * Run the database seeds.
      *
@@ -27,6 +28,12 @@ class PostTableSeeder extends Seeder
                     'content' => "Comment #$commentNumber for post #$postNumber",
                 ]);
                 $post->comments()->save($comment);
+            }
+
+            // Creating likes
+            for ($likeNumber = 1; $likeNumber <= self::DEFAULT_LIKES_SEEDS; $likeNumber++) {
+                $like = new \App\Like();
+                $post->likes()->save($like);
             }
         }
     }
