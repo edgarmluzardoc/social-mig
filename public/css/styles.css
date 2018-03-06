@@ -1,0 +1,44 @@
+/* Styles for posts */
+.post-title {
+    font: 400 60px "Mina", Helvetica, sans-serif;
+    color: #0000b3;
+}
+
+.post-content {
+    font: 400 18px "Mina", Helvetica, sans-serif;
+}
+
+/* Styles for inputs */
+textarea {
+    resize: none;
+}
+
+/* Styles for Navigation Bar */
+.navbar {
+    background-color: #596cb6;
+}
+
+.navbar .navbar-brand,
+.navbar-default .navbar-nav > li > a {
+    color: #ffffff;
+}
+
+.navbar .navbar-brand {
+    font: 400 17px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.navbar .navbar-brand:hover { 
+    background-color: transparent;
+    color: #333;
+}
+
+/* Styles for buttons */
+.modal .modal-buttons {
+    text-align: right;
+    padding-top: 15px;
+}
+
+.btn-secondary {
+    color: #ffffff;
+    background: #c3c3c3;
+}

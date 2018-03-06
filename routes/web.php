@@ -11,6 +11,77 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/**
+ * Home Routes
+ */
+Route::get('/', [
+    'uses' => 'PostController@getIndex',
+    'as' => 'post.index'
+]);
+
+
+/**
+ * Post Routes
+ */
+Route::group(['prefix' => 'post'], function() {
+    // Creating posts
+    Route::get('create', [
+        'uses' => 'PostController@getPostCreate',
+        'as' => 'post.create'
+    ]);
+
+    Route::post('create', [
+        'uses' => 'PostController@postPostCreate',
+        'as' => 'post.create'
+    ]);
+
+    // Updating posts
+    Route::get('edit/{id}', [
+        'uses' => 'PostController@getPostEdit',
+        'as' => 'post.edit'
+    ]);
+
+    Route::post('edit', [
+        'uses' => 'PostController@postPostUpdate',
+        'as' => 'post.update'
+    ]);
+
+    // Deleting posts
+    Route::get('delete/{id}', [
+        'uses' => 'PostController@getPostDelete',
+        'as' => 'post.delete'
+    ]);
+
+    // Adding Likes
+    Route::get('post/{id}/like', [
+        'uses' => 'PostController@getLikePost',
+        'as' => 'post.like'
+    ]);
+});
+
+/**
+ * Comment Routes
+ */
+Route::get('/comments/post/{postId}', [
+    'uses' => 'CommentController@getIndex',
+    'as' => 'comment.index'
+]);
+
+Route::group(['prefix' => 'comment'], function() {
+    // Creating comments
+    Route::post('create', [
+        'uses' => 'CommentController@postCommentCreate',
+        'as' => 'comment.create'
+    ]);
+
+    Route::post('edit', [
+        'uses' => 'CommentController@postCommentUpdate',
+        'as' => 'comment.update'
+    ]);
+
+    // Deleting comments
+    Route::get('delete/{commentId}', [
+        'uses' => 'CommentController@getCommentDelete',
+        'as' => 'comment.delete'
+    ]);
 });
