@@ -19,7 +19,6 @@ Route::get('/', [
     'as' => 'post.index'
 ]);
 
-
 /**
  * Post Routes
  */
@@ -85,3 +84,8 @@ Route::group(['prefix' => 'comment'], function() {
         'as' => 'comment.delete'
     ]);
 });
+
+/**
+ * Auth Routes
+ */
+Auth::routes();
