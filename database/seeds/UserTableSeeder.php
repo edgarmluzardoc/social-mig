@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 class UserTableSeeder extends Seeder
 {
-    const DEFAULT_USERS_SEEDS = 3;
+    const DEFAULT_USERS_SEEDS = 5;
     const DEFAULT_USERS_PASSWORD = '123456';
     /**
      * Run the database seeds.

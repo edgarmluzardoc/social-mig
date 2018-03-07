@@ -1,15 +1,9 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+/**
+ * Auth Routes
+ */
+Auth::routes();
 
 /**
  * Home Routes
@@ -79,6 +73,7 @@ Route::group(['prefix' => 'comment'], function() {
         'as' => 'comment.create'
     ]);
 
+    // Updating comments
     Route::post('edit', [
         'uses' => 'CommentController@postCommentUpdate',
         'as' => 'comment.update'
@@ -92,6 +87,22 @@ Route::group(['prefix' => 'comment'], function() {
 });
 
 /**
- * Auth Routes
+ * Friend Routes
  */
-Auth::routes();
+Route::group(['prefix' => 'friends'], function() {
+    // View friends
+    Route::get('', [
+        'uses' => 'FriendController@getIndex',
+        'as' => 'friend.index'
+    ]);
+
+    Route::post('add', [
+        'uses' => 'FriendController@postAddFriend',
+        'as' => 'friend.add'
+    ]);
+
+    Route::post('remove', [
+        'uses' => 'FriendController@postRemoveFriend',
+        'as' => 'friend.remove'
+    ]);
+});
