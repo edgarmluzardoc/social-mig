@@ -30,4 +30,20 @@ class Post extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function likesUsers()
+    {
+        $likesUsers = '';
+        $likesUsersArray = [];
+
+        foreach ($this->likes as $like) {
+            $user = User::find($like->user_id);
+            $likesUsersArray[] = $user->name;
+        }
+        
+        if (!empty($likesUsersArray)) {
+            $likesUsers = implode(', ', $likesUsersArray);
+        }
+        return $likesUsers;
+    }
 }

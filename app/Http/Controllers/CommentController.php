@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Comment;
+use Auth;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -32,11 +33,21 @@ class CommentController extends Controller
             'content' => 'required'
         ]);
 
+        // Validate user is logged in
+        $user = Auth::user();
+        if (!$user) {
+            return redirect()->back();
+        }
+
         $comment = new Comment([
-            'content' => $request->input('content')
+            'content' => $request->input('content'),
+            'user_id' => Auth::user()->id
         ]);
+
         $post = Post::find($request->input('postId'));
         $post->comments()->save($comment);
+        $user->comments()->save($comment);
+
         $params = [
             'postId' => $post->id
         ];

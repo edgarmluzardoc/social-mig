@@ -56,6 +56,12 @@ Route::group(['prefix' => 'post'], function() {
         'uses' => 'PostController@getLikePost',
         'as' => 'post.like'
     ]);
+
+    // Removing Likes
+    Route::get('post/{postId}/unlike', [
+        'uses' => 'PostController@getUnlikePost',
+        'as' => 'post.unlike'
+    ]);
 });
 
 /**
