@@ -18,7 +18,8 @@ class PostTableSeeder extends Seeder
         for ($postNumber = 1; $postNumber <= self::DEFAULT_POSTS_SEEDS; $postNumber++) {
             $post = new \App\Post([
                 'title' => "Title for post #$postNumber",
-                'content' => "Content or description for post #$postNumber"
+                'content' => "Content or description for post #$postNumber",
+                'user_id' => 1
             ]);
             $post->save();
 

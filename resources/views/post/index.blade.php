@@ -19,7 +19,7 @@
             <a href="#">{{ count($post->likes) }} Likes</a>
         </div>
         <div class="col-md-4 text-center">
-                <p>{{ $post->created_at }} by Username.</p>
+            <p>{{ $post->created_at }} by {{ $post->user->name }}.</p>
         </div>
         <div class="col-md-4 text-right">
             <a href="{{ route('post.like', ['id' => $post->id]) }}">Like</a> | 

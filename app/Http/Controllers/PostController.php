@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Like;
 use App\Post;
+use Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -39,11 +40,22 @@ class PostController extends Controller
             'title' => 'required',
             'content' => 'required'
         ]);
+
+        // Validate user is logged in
+        $user = Auth::user();
+        if (!$user) {
+            return redirect()->back();
+        }
+
+        // Creating post
         $post = new Post([
             'title' => $request->input('title'),
             'content' => $request->input('content')
         ]);
+
+        $user->posts()->save($post);
         $post->save();
+        
         return redirect()->route('post.index')->with('info', 'Post created!');
     }
 
