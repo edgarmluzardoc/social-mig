@@ -28,6 +28,11 @@ class PostController extends Controller
      */
     public function getPostCreate()
     {
+        // Validate user is logged in
+        $user = Auth::user();
+        if (!$user) {
+            return redirect()->route('post.index');
+        }
         return view('post.create');
     }
 
@@ -106,8 +111,21 @@ class PostController extends Controller
     public function getLikePost($id)
     {
         $post = Post::find($id);
-        $like = new Like();
+        $like = new Like([
+            'user_id' => Auth::user()->id
+        ]);
         $post->likes()->save($like);
+        return redirect()->back();
+    }
+
+    /**
+     * Likes - Removing likes to a post
+     */
+    public function getUnlikePost($postId)
+    {
+        $post = Post::find($postId);
+        $like = Like::where('user_id', Auth::user()->id)->where('post_id', $postId)->get();
+        $post->likes()->delete($like);
         return redirect()->back();
     }
 }

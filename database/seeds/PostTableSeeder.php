@@ -7,6 +7,7 @@ class PostTableSeeder extends Seeder
     const DEFAULT_POSTS_SEEDS = 5;
     const DEFAULT_COMMENTS_SEEDS = 2;
     const DEFAULT_LIKES_SEEDS = 1;
+    const DEFAULT_USER_ID = 1;
     /**
      * Run the database seeds.
      *
@@ -19,7 +20,7 @@ class PostTableSeeder extends Seeder
             $post = new \App\Post([
                 'title' => "Title for post #$postNumber",
                 'content' => "Content or description for post #$postNumber",
-                'user_id' => 1
+                'user_id' => self::DEFAULT_USER_ID
             ]);
             $post->save();
 
@@ -27,13 +28,16 @@ class PostTableSeeder extends Seeder
             for ($commentNumber = 1; $commentNumber <= self::DEFAULT_COMMENTS_SEEDS; $commentNumber++) {
                 $comment = new \App\Comment([
                     'content' => "Comment #$commentNumber for post #$postNumber",
+                    'user_id' => self::DEFAULT_USER_ID
                 ]);
                 $post->comments()->save($comment);
             }
 
             // Creating likes
             for ($likeNumber = 1; $likeNumber <= self::DEFAULT_LIKES_SEEDS; $likeNumber++) {
-                $like = new \App\Like();
+                $like = new \App\Like([
+                    'user_id' => self::DEFAULT_USER_ID
+                ]);
                 $post->likes()->save($like);
             }
         }
