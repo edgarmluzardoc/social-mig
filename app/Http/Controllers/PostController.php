@@ -123,9 +123,8 @@ class PostController extends Controller
      */
     public function getUnlikePost($postId)
     {
-        $post = Post::find($postId);
-        $like = Like::where('user_id', Auth::user()->id)->where('post_id', $postId)->get();
-        $post->likes()->delete($like);
+        $like = Like::where('user_id', Auth::user()->id)->where('post_id', $postId)->first();
+        $like->delete();
         return redirect()->back();
     }
 }

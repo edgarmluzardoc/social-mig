@@ -6,6 +6,7 @@
                 {{--  Actions available to everyone  --}}
             @else
                 <a class="navbar-brand" href="{{ route('post.create') }}">New Post</a>
+                <a class="navbar-brand" href="{{ route('friend.index') }}">Friends</a>
             @endguest
         </div>
         <div id="navbar" class="navbar-collapse collapse">

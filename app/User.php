@@ -50,4 +50,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Comment');
     }
+
+    /**
+     * Friend relationship
+     */
+    public function friends()
+    {
+        return $this->hasMany('App\Friend')->orderBy('name', 'asc');
+    }
 }
