@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 class PostTableSeeder extends Seeder
 {
     const DEFAULT_POSTS_SEEDS = 5;
+    const DEFAULT_POSTS_PRIVACY = 'public';
     const DEFAULT_COMMENTS_SEEDS = 2;
     const DEFAULT_LIKES_SEEDS = 1;
     const DEFAULT_USER_ID = 1;
@@ -20,6 +21,7 @@ class PostTableSeeder extends Seeder
             $post = new \App\Post([
                 'title' => "Title for post #$postNumber",
                 'content' => "Content or description for post #$postNumber",
+                'privacy' => self::DEFAULT_POSTS_PRIVACY,
                 'user_id' => self::DEFAULT_USER_ID
             ]);
             $post->save();

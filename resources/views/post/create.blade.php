@@ -15,6 +15,11 @@
                     <label for="content">Content</label>
                     <textarea class="form-control" id="content" name="content" rows="10"></textarea>
                 </div>
+                <div class="form-group">
+                    <label class="radio-inline"><input type="radio" name="optPrivacy" value="public" checked>Public</label>
+                    <label class="radio-inline"><input type="radio" name="optPrivacy" value="friends">Friends</label>
+                    <label class="radio-inline"><input type="radio" name="optPrivacy" value="private">Private</label>
+                </div>
                 {{ csrf_field() }}
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

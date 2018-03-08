@@ -8,8 +8,19 @@ class Post extends Model
 {
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'privacy'
     ];
+
+    public function setPrivacyAttribute($value)
+    {
+        $this->attributes['privacy'] = strtolower($value);
+    }
+
+    public function getPrivacyAttribute($value)
+    {
+        return ucwords($value);
+    }
 
     public function getCreatedAtAttribute($value)
     {

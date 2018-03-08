@@ -16,7 +16,42 @@ class PostController extends Controller
      */
     public function getIndex()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(self::MAX_POSTS_PER_PAGE);
+        $user = Auth::user();
+        if ($user) {
+            // Getting user's friend ids
+            $friendIds = [];
+            foreach ($user->friends as $friend) {
+                $friendIds[] = $friend->friend_id;
+            }
+
+            $publicPosts = $posts = Post::where('privacy', 'public');
+            $friendPosts = $posts = Post::where('privacy', 'friends')->whereIn('user_id', $friendIds);
+            $privatePosts = $posts = Post::where('user_id', $user->id);
+
+            $posts = $publicPosts->union($friendPosts)->union($privatePosts)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } else {
+            $posts = Post::where('privacy', 'public')->orderBy('created_at', 'desc')->paginate(self::MAX_POSTS_PER_PAGE);
+        }
+        
+        $params = [
+            'posts' => $posts
+        ];
+        return view('post.index', $params);
+    }
+
+    /**
+     * Gets all posts for logged in user
+     */
+    public function getMyPosts()
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return redirect()->back();
+        }
+
+        $posts = Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(self::MAX_POSTS_PER_PAGE);
         $params = [
             'posts' => $posts
         ];
@@ -55,7 +90,8 @@ class PostController extends Controller
         // Creating post
         $post = new Post([
             'title' => $request->input('title'),
-            'content' => $request->input('content')
+            'content' => $request->input('content'),
+            'privacy' => $request->input('optPrivacy')
         ]);
 
         $user->posts()->save($post);

@@ -17,6 +17,12 @@ Route::get('/', [
  * Post Routes
  */
 Route::group(['prefix' => 'post'], function() {
+    // View My Posts
+    Route::get('myposts', [
+        'uses' => 'PostController@getMyPosts',
+        'as' => 'post.myposts'
+    ]);
+
     // Creating posts
     Route::get('create', [
         'uses' => 'PostController@getPostCreate',
