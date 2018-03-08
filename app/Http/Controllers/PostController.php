@@ -125,6 +125,7 @@ class PostController extends Controller
         $post = Post::find($request->input('id'));
         $post->title = $request->input('title');
         $post->content = $request->input('content');
+        $post->privacy = $request->input('optPrivacy');
         $post->save();
         return redirect()->route('post.index')->with('info', 'Post edited!');
     }

@@ -17,11 +17,6 @@ class Post extends Model
         $this->attributes['privacy'] = strtolower($value);
     }
 
-    public function getPrivacyAttribute($value)
-    {
-        return ucwords($value);
-    }
-
     public function getCreatedAtAttribute($value)
     {
         return date("F j, Y, g:i a", strtotime($value));
