@@ -19,7 +19,7 @@
                 <a href="#" title="{{ $post->likesUsers() }}">{{ count($post->likes) }} Likes</a>
             </div>
             <div class="col-md-4 text-center">
-                <p>{{ $post->privacy }} post. {{ $post->created_at }} by {{ $post->user->name }}.</p>
+                <p>{{ ucwords($post->privacy) }} post. {{ $post->created_at }} by {{ $post->user->name }}.</p>
             </div>
             <div class="col-md-4 text-right">
                 @guest
