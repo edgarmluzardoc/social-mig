@@ -16,7 +16,7 @@ Route::get('/', [
 /**
  * Post Routes
  */
-Route::group(['prefix' => 'post'], function() {
+Route::group(['prefix' => 'post', 'middleware' => ['auth']], function() {
     // View My Posts
     Route::get('myposts', [
         'uses' => 'PostController@getMyPosts',
@@ -72,7 +72,7 @@ Route::get('/comments/post/{postId}', [
     'as' => 'comment.index'
 ]);
 
-Route::group(['prefix' => 'comment'], function() {
+Route::group(['prefix' => 'comment', 'middleware' => ['auth']], function() {
     // Creating comments
     Route::post('create', [
         'uses' => 'CommentController@postCommentCreate',
@@ -95,7 +95,7 @@ Route::group(['prefix' => 'comment'], function() {
 /**
  * Friend Routes
  */
-Route::group(['prefix' => 'friends'], function() {
+Route::group(['prefix' => 'friends', 'middleware' => ['auth']], function() {
     // View friends
     Route::get('', [
         'uses' => 'FriendController@getIndex',
