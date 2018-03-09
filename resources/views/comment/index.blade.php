@@ -64,7 +64,7 @@
                     {{--  Cannot do actions if not logged in  --}}
                 @else
                     {{--  Handling Edit/Delete  --}}
-                    @if($post->user_id == Auth::user()->id)
+                    @if($comment->user_id == Auth::user()->id)
                         <a href="#" data-toggle="modal" data-target="#editCommentModal{{ $comment->id }}">Edit</a> | 
                         <a href="{{ route('comment.delete', ['commentId' => $comment->id]) }}">Delete</a>
                     @endif

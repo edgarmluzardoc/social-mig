@@ -46,11 +46,6 @@ class PostController extends Controller
      */
     public function getMyPosts()
     {
-        $user = Auth::user();
-        if (!$user) {
-            return redirect()->back();
-        }
-
         $posts = Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(self::MAX_POSTS_PER_PAGE);
         $params = [
             'posts' => $posts
@@ -63,11 +58,6 @@ class PostController extends Controller
      */
     public function getPostCreate()
     {
-        // Validate user is logged in
-        $user = Auth::user();
-        if (!$user) {
-            return redirect()->route('post.index');
-        }
         return view('post.create');
     }
 
@@ -81,12 +71,6 @@ class PostController extends Controller
             'content' => 'required'
         ]);
 
-        // Validate user is logged in
-        $user = Auth::user();
-        if (!$user) {
-            return redirect()->back();
-        }
-
         // Creating post
         $post = new Post([
             'title' => $request->input('title'),
@@ -94,6 +78,7 @@ class PostController extends Controller
             'privacy' => $request->input('optPrivacy')
         ]);
 
+        $user = Auth::user();
         $user->posts()->save($post);
         $post->save();
         
@@ -106,6 +91,9 @@ class PostController extends Controller
     public function getPostEdit($id)
     {
         $post = Post::find($id);
+        if (empty($post) || !$this->canPostAction($post->user_id)) {
+            return redirect()->route('post.index');
+        }
         $params = [
             'post' => $post,
             'postId' => $id
@@ -123,6 +111,9 @@ class PostController extends Controller
             'content' => 'required'
         ]);
         $post = Post::find($request->input('id'));
+        if (empty($post) || !$this->canPostAction($post->user_id)) {
+            return redirect()->route('post.index');
+        }
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->privacy = $request->input('optPrivacy');
@@ -136,6 +127,9 @@ class PostController extends Controller
     public function getPostDelete($id)
     {
         $post = Post::find($id);
+        if (empty($post) || !$this->canPostAction($post->user_id)) {
+            return redirect()->route('post.index');
+        }
         $post->comments()->delete();
         $post->likes()->delete();
         $post->delete();
@@ -148,6 +142,9 @@ class PostController extends Controller
     public function getLikePost($id)
     {
         $post = Post::find($id);
+        if (empty($post)) {
+            return redirect()->route('post.index');
+        }
         $like = new Like([
             'user_id' => Auth::user()->id
         ]);
@@ -160,8 +157,21 @@ class PostController extends Controller
      */
     public function getUnlikePost($postId)
     {
+        $post = Post::find($postId);
+        if (empty($post)) {
+            return redirect()->route('post.index');
+        }
         $like = Like::where('user_id', Auth::user()->id)->where('post_id', $postId)->first();
         $like->delete();
         return redirect()->back();
+    }
+
+    /**
+     * Checks if the user logged in can action the URL
+     */
+    private function canPostAction($postUserId)
+    {
+        $user = Auth::user();
+        return $user->id == $postUserId;
     }
 }

@@ -16,6 +16,9 @@ class CommentController extends Controller
     public function getIndex($postId)
     {
         $post = Post::find($postId);
+        if (empty($post)) {
+            return redirect()->route('post.index');
+        }
         $comments = $post->comments;
         $params = [
             'post' => $post,
@@ -33,18 +36,17 @@ class CommentController extends Controller
             'content' => 'required'
         ]);
 
-        // Validate user is logged in
-        $user = Auth::user();
-        if (!$user) {
-            return redirect()->back();
+        $post = Post::find($request->input('postId'));
+        if (empty($post)) {
+            return redirect()->route('post.index');
         }
 
+        $user = Auth::user();
         $comment = new Comment([
             'content' => $request->input('content'),
-            'user_id' => Auth::user()->id
+            'user_id' => $user->id
         ]);
 
-        $post = Post::find($request->input('postId'));
         $post->comments()->save($comment);
         $user->comments()->save($comment);
 
@@ -64,11 +66,17 @@ class CommentController extends Controller
             'content' => 'required'
         ]);
 
+        $postId = $request->input('postId');
+        $post = Post::find($postId);
         $comment = Comment::find($request->input('commentId'));
+
+        if (empty($post) || !$this->canCommentAction($comment->user_id)) {
+            return redirect()->route('post.index');
+        }
+
         $comment->content = $request->input('content');
         $comment->save();
-
-        $postId = $request->input('postId');
+        
         $params = [
             'postId' => $postId
         ];
@@ -82,6 +90,9 @@ class CommentController extends Controller
     public function getCommentDelete($commentId)
     {
         $comment = Comment::find($commentId);
+        if (empty($comment) || !$this->canCommentAction($comment->user_id)) {
+            return redirect()->route('post.index');
+        }
         $postId = $comment->post_id;
         $comment->delete();
         $params = [
@@ -89,5 +100,14 @@ class CommentController extends Controller
         ];
 
         return redirect()->route('comment.index', $params)->with('info', 'Comment deleted!');
+    }
+
+    /**
+     * Checks if the user logged in can action the URL
+     */
+    private function canCommentAction($commentUserId)
+    {
+        $user = Auth::user();
+        return $user->id == $commentUserId;
     }
 }
