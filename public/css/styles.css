@@ -42,3 +42,20 @@ textarea {
     color: #ffffff;
     background: #c3c3c3;
 }
+
+/* Styles for tables */
+.friends-row {
+    display: inline-block;
+    overflow-y: scroll;
+    height: 500px;
+    max-height: 500px;
+    width: -webkit-fill-available;
+}
+
+.no-border {
+    border: none;
+}
+
+.center {
+    text-align: center;
+}
