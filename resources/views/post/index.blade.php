@@ -35,7 +35,8 @@
                     {{--  Handling Edit/Delete  --}}
                     @if($post->user_id == Auth::user()->id)
                         | <a href="{{ route('post.edit', ['id' => $post->id]) }}">Edit</a>
-                        | <a href="{{ route('post.delete', ['id' => $post->id]) }}">Delete</a>
+                        | <a href="{{ route('post.delete', ['id' => $post->id]) }}"
+                            onclick='return confirm("Are you sure you want to delete this post?")'>Delete</a>
                     @endif
                 @endguest
             </div>

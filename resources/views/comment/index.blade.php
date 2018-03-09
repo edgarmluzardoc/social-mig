@@ -36,12 +36,12 @@
                 @else
                     | <a href="{{ route('post.like', ['id' => $post->id]) }}">Like</a>
                 @endif
-                {{--  <a href="{{ route('post.like', ['id' => $post->id]) }}">Like</a> |   --}}
 
                 {{--  Handling Edit/Delete  --}}
                 @if($post->user_id == Auth::user()->id)
                     | <a href="{{ route('post.edit', ['id' => $post->id]) }}">Edit</a>
-                    | <a href="{{ route('post.delete', ['id' => $post->id]) }}">Delete</a>
+                    | <a href="{{ route('post.delete', ['id' => $post->id]) }}"
+                        onclick='return confirm("Are you sure you want to delete this post?")'>Delete</a>
                 @endif
             @endguest
         </div>
@@ -66,7 +66,8 @@
                     {{--  Handling Edit/Delete  --}}
                     @if($comment->user_id == Auth::user()->id)
                         <a href="#" data-toggle="modal" data-target="#editCommentModal{{ $comment->id }}">Edit</a> | 
-                        <a href="{{ route('comment.delete', ['commentId' => $comment->id]) }}">Delete</a>
+                        <a href="{{ route('comment.delete', ['commentId' => $comment->id]) }}"
+                            onclick='return confirm("Are you sure you want to delete this comment?")'>Delete</a>
                     @endif
                 @endguest
                 <hr>
