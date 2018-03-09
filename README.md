@@ -1,4 +1,4 @@
-# Social Sports Network
+# Social Network
 
 Run Docker composer on this directory:
 ```
