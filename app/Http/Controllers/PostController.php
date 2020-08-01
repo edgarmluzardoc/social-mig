@@ -46,6 +46,7 @@ class PostController extends Controller
      */
     public function getMyPosts()
     {
+        $user = Auth::user();
         $posts = Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->paginate(self::MAX_POSTS_PER_PAGE);
         $params = [
             'posts' => $posts
