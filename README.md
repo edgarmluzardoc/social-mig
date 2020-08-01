@@ -1,6 +1,6 @@
 # Social Network
 
-Run Docker composer on this directory:
+Run Docker compose on this directory:
 ```
 docker-compose up -d
 ```
